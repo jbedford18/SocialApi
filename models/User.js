@@ -41,3 +41,9 @@ const UserSchema = new Schema({
     },
 
   );
+
+  // create the user model using the  user Schema
+const User = model('User', UserSchema);
+
+// export the user model
+module.exports = User;
