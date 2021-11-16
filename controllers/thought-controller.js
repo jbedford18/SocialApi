@@ -1,6 +1,6 @@
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
-const ThoughtController = {
+const thoughtController = {
   // the functions will go in here as methods
   
 };
