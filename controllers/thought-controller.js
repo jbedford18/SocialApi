@@ -5,7 +5,7 @@ const thoughtController = {
   // the functions will go in here as methods
 
  //get all users
-  getAllThoughts(req, res) {
+  getAllThought(req, res) {
       Thought.find({})
       .select('-__v')
       .sort({ _id: -1 })
