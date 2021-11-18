@@ -8,24 +8,13 @@ const UserSchema = new Schema({
       trim: true,
 
     },
-    emailBy: {
-        type: String,
-        validate: {
-          validator: async function(email) {
-            const user = await this.constructor.findOne({ email });
-            if(user) {
-              if(this.id === user.id) {
-                return true;
-              }
-              return false;
-            }
-            return true;
-          },
-          message: props => 'The specified email address is already in use.'
-        },
-        required: [true, 'User email required']       
-},
-
+    email: {
+      type: String,
+      required: 'you must enter a username',
+      unique: true,
+      match: [/.+@.+\..+/, 'Please enter a valid e-mail address'],
+    
+  },
     thoughts: [
         {
           type: Schema.Types.ObjectId,
@@ -39,8 +28,17 @@ const UserSchema = new Schema({
         }
       ]
     },
-
-  );
+    {
+      toJSON: {
+          virtuals: true
+      },
+      id: false
+  });
+  
+  UserSchema.virtual('friendCount').get(function(){
+      return this.friends.length;
+  });
+  
 
   // create the user model using the  user Schema
 const User = model('User', UserSchema);

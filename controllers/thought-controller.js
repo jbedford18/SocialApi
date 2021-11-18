@@ -39,13 +39,13 @@ createThought( {params, body }, res){
   .then(({ _id }) => {
       return User.findOneAndUpdate(
           {_id: params.userId },
-          { $push: { thoughts: _id }},
+          { $push: { dbThoughtData: _id }},
           {new: true }
       );
   })
   .then(dbThoughtData => {
       if(!dbThoughtData){
-        res.status(404).json({ message: 'Error in thought creation'});
+        res.status(404).json({ message: 'Issue In adding thought'});
         return;
       }
       res.json(dbThoughtData);
@@ -60,7 +60,7 @@ updateThought( {params, body}, res ){
     )
  .then(dbThoughtData => {
     if(!dbThoughtData){
-      res.status(404).json({ message: 'Error in thought creation'});
+      res.status(404).json({ message: 'Error in thought update'});
        return;
     }
     res.json(dbThoughtData);
